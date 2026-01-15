@@ -5,9 +5,21 @@ class VotingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    voteParticipants(String id){
+      FirebaseFirestore.instance.collection('participants').doc(id).update(
+        {
+          'votes' : FieldValue.increment(1)
+        }
+      );
+    }
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('participants').snapshots(),
       builder: (context, asyncSnapshot) {
+        if(asyncSnapshot.connectionState == ConnectionState.waiting){
+          return Center(child: CircularProgressIndicator());
+        }
         final participants = asyncSnapshot.data!.docs;
         return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -24,8 +36,8 @@ class VotingPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.network(data['imageUrl'],
-                      height: 150,
-                      width: 130,
+                      height: 170,
+                      width: double.infinity,
                       fit: BoxFit.cover,
                     ),
 
@@ -33,12 +45,17 @@ class VotingPage extends StatelessWidget {
                     Text(data['name'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),),
                     SizedBox(height: 20,),
                     Text('Votes: ${data['votes']}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40,),),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        foregroundColor: Colors.white
-                      ),
-                        onPressed: (){}, child: Text('VOTE'))
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          foregroundColor: Colors.white
+                        ),
+                          onPressed: (){
+                          voteParticipants(docs.id);
+                          }, child: Text('VOTE')),
+                    )
         
                   ],
                 ),

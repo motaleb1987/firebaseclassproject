@@ -11,14 +11,14 @@ class NotificationService{
       badge: true,
       sound: true,
     );
-    print('Permission ${settings.authorizationStatus}');
+    print('Permission : ${settings.authorizationStatus}');
     String ? token = await _messaging.getToken();
     print('Device token : ${token}');
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message){
-      print('Message Title : ${message.notification!.title}');
-      print('Message Body : ${message.notification!.body}');
-    });
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message){
+    //   print('Message Title : ${message.notification!.title}');
+    //   print('Message Body : ${message.notification!.body}');
+    // });
   }
 
 

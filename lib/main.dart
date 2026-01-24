@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebaseclassproject/firebase_options.dart';
+import 'package:firebaseclassproject/flutter_local_notification.dart';
 import 'package:firebaseclassproject/my_app.dart';
 import 'package:firebaseclassproject/notification_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,5 +26,7 @@ main() async {
     }
   });
 
+  // local Notification (from class recording)
+  await iniNotification();
   runApp(MyApp());
 }

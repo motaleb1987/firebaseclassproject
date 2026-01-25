@@ -1,4 +1,5 @@
 import 'package:firebaseclassproject/local_notification_demo.dart';
+import 'package:firebaseclassproject/login_page.dart';
 import 'package:firebaseclassproject/task_manager.dart';
 import 'package:firebaseclassproject/voting_page.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BD Voting',
-      home: LocalNotificationDemo(),
+      home: LoginPage(),
     );
   }
 }
